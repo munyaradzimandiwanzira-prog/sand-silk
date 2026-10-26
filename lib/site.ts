@@ -13,8 +13,8 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://sandandsilk.co.zw",
   /** International format without "+", e.g. 263771234567. Empty hides the WhatsApp button. */
   whatsapp: digitsOnly(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER),
-  /** Handle without "@". Empty hides the Instagram link. */
-  instagram: (process.env.NEXT_PUBLIC_INSTAGRAM ?? "").replace(/^@/, ""),
+  /** Handle without "@". Set the variable to an empty string to hide the Instagram link. */
+  instagram: (process.env.NEXT_PUBLIC_INSTAGRAM ?? "sand_and_silk_perfume").replace(/^@/, ""),
   /** Facebook page slug, e.g. "sandandsilk". Empty hides the link. */
   facebook: process.env.NEXT_PUBLIC_FACEBOOK ?? "",
 } as const;

@@ -29,7 +29,7 @@ Set these in Cloudflare Pages → **Settings → Variables and Secrets** (or in 
 | Variable | Example | Effect |
 | --- | --- | --- |
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | `263771234567` | Shows the "Join on WhatsApp" button |
-| `NEXT_PUBLIC_INSTAGRAM` | `sandandsilk` | Shows the Instagram link |
+| `NEXT_PUBLIC_INSTAGRAM` | `sand_and_silk_perfume` (default) | Instagram link in the footer |
 | `NEXT_PUBLIC_FACEBOOK` | `sandandsilk` | Shows the Facebook link |
 | `NEXT_PUBLIC_SITE_URL` | `https://sandandsilk.co.zw` | Canonical URL for link previews |
 

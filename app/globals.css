@@ -1,0 +1,381 @@
+/* ==========================================================================
+   Sand & Silk — design tokens (sampled from the launch poster)
+   ========================================================================== */
+:root {
+  /* Surfaces */
+  --sand: #f4e8dc;        /* page / poster paper */
+  --linen: #eee2d6;       /* cards, inputs */
+  --dune: #e2ccb5;        /* the diagonal shadow, image backdrops */
+
+  /* Type & accents */
+  --chocolate: #48290c;   /* logo, headings, body, primary button (10.9:1 on sand) */
+  --taupe: #776652;       /* taglines, captions (4.6:1 on sand) */
+  --olive: #3d4a2b;       /* secondary accent (7.9:1 on sand) */
+  --honey: #b8862b;       /* decorative only — never text on sand */
+  --ink: #121110;         /* black accents */
+
+  --frame: rgb(72 41 12 / 0.38);
+
+  /* Type families */
+  --font-display: "Cinzel", "Cormorant Garamond", Georgia, serif;
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Rhythm */
+  --frame-inset: clamp(12px, 2.4vw, 28px);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background-color: var(--sand);
+  color: var(--chocolate);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+::selection {
+  background: var(--chocolate);
+  color: var(--sand);
+}
+
+:focus-visible {
+  outline: 1px solid var(--chocolate);
+  outline-offset: 4px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ==========================================================================
+   Poster layout
+   ========================================================================== */
+.poster {
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  overflow: hidden;
+  /* Paper grain: tiny SVG noise, tinted by the sand underneath. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.28 0 0 0 0 0.16 0 0 0 0 0.05 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Thin double frame, as on the poster. */
+.frame,
+.frame::after {
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid var(--frame);
+}
+.frame {
+  inset: var(--frame-inset);
+  z-index: 2;
+}
+.frame::after {
+  content: "";
+  inset: 4px;
+}
+
+/* Soft diagonal light-and-shadow, lower left. */
+.shadow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(32deg, rgb(226 204 181 / 0.95) 0%, rgb(226 204 181 / 0.8) 26%, transparent 44%),
+    linear-gradient(32deg, transparent 49%, rgb(226 204 181 / 0.5) 57%, transparent 65%);
+  filter: blur(24px);
+  transform: scale(1.1);
+}
+
+.content {
+  align-self: center;
+  justify-self: center;
+  width: min(100%, 760px);
+  padding: calc(var(--frame-inset) + 56px) calc(var(--frame-inset) + 24px) 32px;
+  text-align: center;
+}
+
+.monogram {
+  display: block;
+  width: clamp(44px, 6vw, 60px);
+  height: auto;
+  margin: 0 auto clamp(28px, 5vh, 48px);
+  color: var(--chocolate);
+}
+
+.brand {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 6.4vw, 4.5rem);
+  line-height: 1.1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  /* Optical centring: trailing letter-spacing would push text left. */
+  margin-right: -0.14em;
+}
+.brand .amp {
+  font-family: var(--font-serif);
+  font-size: 1.05em;
+  letter-spacing: 0;
+  margin: 0 0.06em 0 -0.04em;
+}
+
+.tagline {
+  margin: clamp(16px, 2.6vh, 28px) 0 0;
+  font-size: clamp(0.68rem, 1.3vw, 0.82rem);
+  font-weight: 400;
+  letter-spacing: 0.38em;
+  margin-right: -0.38em;
+  text-transform: uppercase;
+  color: var(--chocolate);
+}
+
+.rule {
+  width: 72px;
+  height: 0;
+  margin: clamp(28px, 5vh, 48px) auto;
+  border: 0;
+  border-top: 1px solid var(--chocolate);
+}
+
+.coming {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 8.6vw, 5.25rem);
+  line-height: 1.05;
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+.lede {
+  margin: clamp(16px, 2.6vh, 24px) auto clamp(28px, 4.5vh, 40px);
+  max-width: 40ch;
+  text-wrap: balance;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.1vw, 1.3rem);
+  line-height: 1.5;
+  color: var(--taupe);
+}
+
+/* ==========================================================================
+   Signup
+   ========================================================================== */
+.signup {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+}
+
+.signup-form {
+  display: flex;
+  width: min(100%, 460px);
+  border: 1px solid var(--frame);
+  background: rgb(238 226 214 / 0.7);
+  backdrop-filter: blur(2px);
+}
+
+.signup-form input[type="email"] {
+  flex: 1;
+  min-width: 0;
+  padding: 15px 18px;
+  border: 0;
+  background: transparent;
+  color: var(--chocolate);
+  font: 400 0.95rem/1.2 var(--font-sans);
+  letter-spacing: 0.02em;
+}
+.signup-form input::placeholder {
+  color: var(--taupe);
+  opacity: 1;
+}
+.signup-form input:focus-visible {
+  outline: none;
+}
+.signup-form:focus-within {
+  border-color: var(--chocolate);
+}
+.signup-form input[aria-invalid="true"] {
+  box-shadow: inset 0 -2px 0 var(--honey);
+}
+
+.honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px 26px;
+  border: 1px solid var(--chocolate);
+  font: 500 0.72rem/1 var(--font-sans);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 400ms var(--ease),
+    color 400ms var(--ease),
+    border-color 400ms var(--ease);
+}
+.btn:disabled {
+  cursor: progress;
+  opacity: 0.7;
+}
+.btn-primary {
+  margin: -1px -1px -1px 0;
+  background: var(--chocolate);
+  color: var(--sand);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--chocolate);
+  border-color: var(--frame);
+}
+.btn-ghost:hover {
+  border-color: var(--olive);
+  color: var(--olive);
+}
+
+.signup-message {
+  min-height: 1.4em;
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--chocolate);
+}
+.signup-message:empty {
+  min-height: 0;
+}
+
+.signup-thanks {
+  margin: 0 auto;
+  max-width: 34ch;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  color: var(--olive);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.footer {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 8px 24px calc(var(--frame-inset) + 22px);
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--taupe);
+}
+.footer p {
+  margin: 0;
+}
+.social {
+  display: flex;
+  gap: 28px;
+}
+.social a {
+  color: var(--chocolate);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 400ms var(--ease);
+}
+.social a:hover {
+  border-color: var(--honey);
+}
+
+/* ==========================================================================
+   Small screens
+   ========================================================================== */
+@media (max-width: 520px) {
+  .signup-form {
+    flex-direction: column;
+    background: transparent;
+    border: 0;
+    gap: 10px;
+    backdrop-filter: none;
+  }
+  .signup-form input[type="email"] {
+    border: 1px solid var(--frame);
+    background: rgb(238 226 214 / 0.8);
+    text-align: center;
+  }
+  .btn-primary {
+    margin: 0;
+  }
+  .brand {
+    letter-spacing: 0.1em;
+    margin-right: -0.1em;
+  }
+  .tagline {
+    letter-spacing: 0.28em;
+    margin-right: -0.28em;
+  }
+}
+
+/* ==========================================================================
+   Entrance motion — slow fades, none for reduced-motion users
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    animation: rise 1100ms var(--ease) both;
+  }
+  .content > .reveal:nth-child(2) { animation-delay: 120ms; }
+  .content > .reveal:nth-child(3) { animation-delay: 240ms; }
+  .content > .reveal:nth-child(4) { animation-delay: 360ms; }
+  .content > .reveal:nth-child(5) { animation-delay: 480ms; }
+  .content > .reveal:nth-child(6) { animation-delay: 600ms; }
+  .content > .reveal:nth-child(7) { animation-delay: 720ms; }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

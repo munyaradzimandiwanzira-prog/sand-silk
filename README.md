@@ -38,21 +38,14 @@ Set these in Cloudflare Pages → **Settings → Variables and Secrets** (or in 
 1. Sign up at [dash.cloudflare.com](https://dash.cloudflare.com) (free).
 2. **Workers & Pages → Create → Pages → Connect to Git**, then choose this GitHub repository.
 3. Build settings:
-   - Framework preset: **Next.js (Static HTML Export)**
-   - Build command: `npm run build`
-   - Build output directory: `out`
-   - Environment variable: `NODE_VERSION` = `22`, plus the settings above
+   - Build command: `npm run build` (the output folder `out` and Node 22 come from `wrangler.toml` and `.nvmrc`)
+   - Environment variables: the settings above
 4. **Save and Deploy.** Every push to `main` now redeploys automatically, and pull requests get preview links.
 5. Optional: **Custom domains → Set up a domain** to attach your own domain.
 
 ### Signup database
 
-Until the database is connected, the form shows a friendly error and points people to WhatsApp.
-
-1. **Workers & Pages → D1 → Create database**, named `sand-silk`.
-2. Open its **Console** and run the contents of [`db/schema.sql`](db/schema.sql).
-3. In the Pages project: **Settings → Bindings → Add → D1 database**. Variable name `DB`, database `sand-silk`.
-4. Redeploy (Deployments → ⋯ → Retry deployment).
+The D1 database `sand-silk` and its `subscribers` table already exist, and `wrangler.toml` binds it to the site as `DB`, so no dashboard step is needed. To recreate the table elsewhere, run [`db/schema.sql`](db/schema.sql) in the D1 console.
 
 See signups in D1's console:
 

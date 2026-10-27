@@ -1,0 +1,15 @@
+# Cloudflare Pages configuration — the single source of truth for this project.
+# With this file present, Cloudflare uses these settings instead of the dashboard's
+# output-folder and binding settings, so a mis-set dashboard field can't break the site.
+#
+# Build command (set in dashboard): npm run build
+# Node version: taken from .nvmrc
+name = "sand-silk"
+compatibility_date = "2026-10-01"
+pages_build_output_dir = "out"
+
+# Launch-list signups (Cloudflare D1, free plan). Table: db/schema.sql
+[[d1_databases]]
+binding = "DB"
+database_name = "sand-silk"
+database_id = "0ada63ab-8f43-4ff5-86de-c859e490a81a"
